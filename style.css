@@ -37,7 +37,7 @@ p{
   margin-bottom: 5px;
 }
 
-#mealBtn{
+#mealBtn, #viewPdf{
   height:30px;
   padding:0 30px;
   background:#B773E5;
@@ -117,7 +117,7 @@ footer > h2{
 }
 
 #projectSrcBtn{
-  display:flex;
+  margin-right:20px;
   background:transparent;
   color:white;
   border-radius:20px;
@@ -142,6 +142,7 @@ footer > h2{
     font-size:1em;
   }
   #projectSrcBtn{
+    margin:0;
     position:absolute;
     top:5px;
     font-size:0.5em;
