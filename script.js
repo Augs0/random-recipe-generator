@@ -1,5 +1,8 @@
+// PDF output looks nicest when viewer is >500px 
+
 const mealBtn = document.getElementById('mealBtn');
 const mealContainer = document.getElementById('mealContainer');
+
 
 mealBtn.addEventListener('click', () => {
 fetchMeals()
@@ -25,7 +28,7 @@ function createMeal(meal){
   const newInnerHTML = `
 		<div class="row">
 			<div class="columns five">
-				<img src="${meal.strMealThumb}" alt="Meal Image">
+				<img src="${meal.strMealThumb}" alt="Meal Image" data-html2canvas-ignore="true">
 				${meal.strCategory ? `<p><strong>Category:</strong> ${meal.strCategory}</p>` : ''}
 				${meal.strArea ? `<p><strong>Area:</strong> ${meal.strArea}</p>` : ''}
 				${meal.strTags ? `<p><strong>Tags:</strong> ${meal.strTags.split(',').join(', ')}</p>` : ''}
@@ -41,8 +44,8 @@ function createMeal(meal){
 		</div>
 		${meal.strYoutube ? `
 		<div class="row">
-			<h5>Video Recipe</h5>
-			<div class="videoWrapper">
+			<h5 data-html2canvas-ignore="true">Video Recipe</h5>
+			<div class="videoWrapper" data-html2canvas-ignore="true">
 				<iframe width="420" height="315"
 				src="https://www.youtube.com/embed/${meal.strYoutube.slice(-11)}">
 				</iframe>
@@ -52,5 +55,16 @@ function createMeal(meal){
 	
 	mealContainer.innerHTML = newInnerHTML;
   
+  // View recipe as PDF
+const pdfBtn = document.getElementById('viewPdf');
+pdfBtn.addEventListener('click', () => {
+  var options = {
+  margin:       1,
+  filename:     `${meal.strMeal} Recipe.pdf`,
+  image:        { type: 'jpeg', quality: 0.98 },
+  html2canvas:  { scale: 1, backgroundColor: 'red' },
+  jsPDF:        { unit: 'in', format: 'letter', orientation: 'portrait' }
+};
+  html2pdf().from(mealContainer).set(options).save();
+})
 }
-
